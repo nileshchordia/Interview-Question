@@ -1,44 +1,42 @@
+// rotate square matrix in clockwise by 90----------
 #include <stdio.h>
 
-void rotateby90(int a[][4],int n)
+void swap(int *i,int *j)
 {
-	for (int i = 0; i < n; ++i)
+	int temp=*i;
+	*i=*j;
+	*j=temp;
+}
+
+void reverse(int (*a)[3],int n)
+{
+	for(int i=0;i<n;i++)
 	{
-		int temp;
-		for(int j=0,len=n-1;j<len;j++,len--)
-		{
-			temp=a[i][j];
-			a[i][j]=a[i][len];
-			a[i][len]=temp;
-		}
+		for(int j=0,k=n-1;j<k;j++,k--)
+			swap(&a[i][j],&a[i][k]);
 	}
-
-
-	int count=-1;
-
-	for (int i = 0; i < n; ++i)
+}
+void rotateby90Clockwise(int (*a)[3],int n)
+{
+	for(int i=0;i<n;i++)
 	{
-		count++;
-		int temp;
-		for(int j=count;j<n;j++)
-		{
-			temp=a[i][j];
-			a[i][j]=a[j][i];
-			a[j][i]=temp;
-		}
+		for(int j=i;j<n;j++)
+			swap(&a[i][j],&a[j][i]);
 	}
-
+	reverse(a,n);
 
 	for(int i=0;i<n;i++)
 	{
-
 		for(int j=0;j<n;j++)
 		{
-			printf("%d ",a[i][j]);
+			printf("%d\t",a[i][j]);
 		}
 		printf("\n");
 	}
+
+	
 }
+
 
 int main(int argc, char const *argv[])
 {
@@ -54,7 +52,7 @@ int main(int argc, char const *argv[])
 			scanf("%d",&a[i][j]);
 		}
 	}
-	rotateby90(a,n);
+	rotateby90Clockwise(a,n);
 	return 0;
 }
 // Time Complexity----------orderof(n**2)
